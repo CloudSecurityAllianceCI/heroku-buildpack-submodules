@@ -1,0 +1,25 @@
+#!/bin/sh
+
+# Determine if this buildpack should be applied
+# (i.e., if the build directory contains a .gitmodules file).
+
+BUILD_DIR=$1
+
+if [ ! -d "$BUILD_DIR/.git" ]; then
+  echo "-----> Skipping submodule init: .git directory not found"
+  exit 1
+fi
+
+if [ ! -f "$BUILD_DIR/.gitmodules" ]; then
+  echo "-----> Skipping submodule init: .gitmodules file not found"
+  exit 1
+fi
+
+if [ ! -f "$BUILD_DIR/.git/config" ]; then
+  echo "-----> Skipping submodule init: .git/config not found"
+  exit 1
+fi
+
+echo "-----> Submodule support detected"
+echo "submodules"
+exit 0

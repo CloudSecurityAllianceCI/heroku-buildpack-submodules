@@ -1,0 +1,16 @@
+#!/bin/sh
+# bin/compile BUILD_DIR CACHE_DIR ENV_DIR
+
+# This script initializes git submodules in the specified build directory.
+
+BUILD_DIR=$1
+
+echo "-----> Begin initializing Git submodules"
+
+echo "       BUILD_DIR: $BUILD_DIR"
+cd "$BUILD_DIR" || exit 1
+
+echo "       Running: git submodule update --init --recursive"
+git submodule update --init --recursive
+
+echo "       Finished initializing Git submodules"
