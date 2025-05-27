@@ -1,19 +1,15 @@
 #!/bin/sh
 # bin/compile BUILD_DIR CACHE_DIR ENV_DIR
 
-# This script initializes git submodules in the specified build directory.
-
 BUILD_DIR=$1
-
-echo "-----> Begin initializing Git submodules"
-
-echo "       BUILD_DIR: $BUILD_DIR"
 cd "$BUILD_DIR" || exit 1
 
-echo "       Create an empty repo to fetch submodules into"
-git init -q
+echo "-----> Downloading CSA-STAR-CAIQ-AI submodule via tarball"
 
-echo "       Running: git submodule update --init --recursive"
-git submodule update --init --recursive
+curl -L https://github.com/CloudSecurityAllianceCI/CSA-STAR-CAIQ-AI/tarball/main \
+  | tar -xz --strip-components=1 -C ./CSA-STAR-CAIQ-AI.tmp
 
-echo "       Finished initializing Git submodules"
+rm -rf CSA-STAR-CAIQ-AI
+mv CSA-STAR-CAIQ-AI.tmp CSA-STAR-CAIQ-AI
+
+echo "-----> Submodule unpacked into ./CSA-STAR-CAIQ-AI"
